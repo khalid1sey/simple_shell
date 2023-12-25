@@ -6,6 +6,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #define MAX_CMD_LEN 1000
 #define MAX_ARGS 1024
