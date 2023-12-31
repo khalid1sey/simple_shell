@@ -48,7 +48,7 @@ void prompt(char *cmd)
 void executecmd(char *cmd, int comcounter)
 {
     const char *args[MAX_ARGS];
-	const char path = getenv;
+	const char *path = getenv("PATH");
    
     pid_t pid = fork();
     if (pid == -1)
@@ -58,7 +58,7 @@ void executecmd(char *cmd, int comcounter)
     }
     else if (pid == 0)
     {
-        execve(path, args[0], NULL);
+        execle(path, args[0], NULL);
         exit(1);
     }
     else
