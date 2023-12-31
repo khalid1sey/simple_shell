@@ -1,146 +1,42 @@
 
-The original Unix operating system was designed and implemented by Ken Thompson and Dennis Ritchie at AT&T Bell Laboratories in the early 1970s.
-The first version of the UNIX shell, called the Thompson shell or sh, was written by Ken Thompson himself. Ken Thompson developed the shell as part of the original UNIX operating system at Bell Laboratories in the early 1970s.
 
-a shell works by accepting user commands, parsing them, locating the corresponding executable, creating a new process to execute the command, waiting for the command to complete, and displaying the output. It provides an interface between the user and the operating system, allowing users to interact with the system by executing commands and managing resources. Shells also offer additional features like environment variables, command history, piping, redirection, and scripting capabilities.
+Introduction:
+The Unix operating system revolutionized computing with its modular design and powerful features. One of its key components is the shell, which serves as a user interface to interact with the operating system. In this article, we will delve into the key concepts and functionalities of Unix shells, process management, environment manipulation, system calls, and more. Let's explore the foundations of Unix shells and how they facilitate efficient interaction between users and the operating system.
 
-processes can be created by using system calls or functions provided by the operating system or programming language. In Unix-like systems, the fork() system call is commonly used to create a new process by duplicating the existing process. In Windows systems, the CreateProcess function is often used to create new processes, specifying parameters such as the executable file and process attributes.
+    Unix Shells:
+    1.1 The Origins of Unix Shells:
+    The original Unix shell, known as the Thompson shell or sh, was developed by Ken Thompson in the early 1970s. We'll briefly touch upon its inception and the role it played in early Unix systems.
 
-PID (Process ID) is a unique identifier assigned to each running process, while PPID (Parent Process ID) represents the PID of the parent process that created a particular process. PID helps track and manage individual processes, while PPID establishes the hierarchical relationship between processes.
+1.2 Shell Basics:
+Learn about the fundamental workings of a shell, including its purpose, command parsing, execution, and output handling. We'll also explore features like environment variables, command history, piping, redirection, and scripting capabilities that enhance the shell's functionality.
 
-you can manipulate the environment of the current process using functions like getenv() to retrieve the value of an environment variable, setenv() to set or modify the value of an environment variable, and unsetenv() to remove an environment variable from the process's environment.
+    Process Management:
+    2.1 Process Creation:
+    Discover how processes are created in Unix-like systems and Windows, focusing on system calls such as fork() and CreateProcess(). Understand the significance of Process IDs (PID) and Parent Process IDs (PPID) in managing and tracking processes.
 
-In short, the main difference between a function and a system call is that a function is a block of reusable code within a program or library that operates in user mode and is invoked within the same program, while a system call is a request made by a program to the operating system kernel for privileged operations or accessing system resources. System calls allow user programs to interact with the operating system and are executed in kernel mode.
+2.2 Executing Programs:
+Explore the execve() system call and its usage to execute other programs. Step through the process of preparing arguments and environment variables, and see how execve() replaces the current process with the new program.
 
-the shell uses the PATH environment variable to find programs by searching the directories specified in PATH. It looks for an executable file with a matching name in each directory, executing the first one found. If no executable is found, it displays a "command not found" error.
+    Environment Manipulation:
+    Learn how to manipulate the environment of a process using functions like getenv(), setenv(), and unsetenv(). Understand how these functions allow you to retrieve, modify, and remove environment variables within a process.
 
-you can execute another program using the execve() system call in the following steps:
+    Functions vs. System Calls:
+    Distinguish between functions and system calls, understanding their roles and differences. Gain insight into how functions operate within a program, while system calls provide a means to interact with the operating system and access system resources.
 
-    Prepare the arguments: Create an array of strings that contains the program name and its arguments. This array should be terminated with a NULL pointer.
+    PATH and Program Execution:
+    Learn how the shell uses the PATH environment variable to locate programs. Explore the process of searching directories specified in PATH to find an executable file, and understand how the shell handles "command not found" scenarios.
 
-    Prepare the environment variables (optional): If the executed program requires specific environment variables, create an array of strings representing the environment variables. This array should also be terminated with a NULL pointer.
+    Main Function Prototypes:
+    Discover the three common prototypes of the main function in C programs, highlighting their purposes. Understand the differences between int main(void), int main(int argc, char *argv[]), and int main(int argc, char *argv[], char *envp[]), and when to use each.
 
-    Call execve(): Invoke the execve() system call, providing the path to the program binary, the argument array, and the environment variable array as parameters.
+    Suspending Processes with Wait:
+    Understand how the wait() system call and its variants allow a process to suspend its execution until one of its child processes terminates. Follow the steps involved in forking a child process, executing code in the child, and waiting for the child process to complete in the parent.
 
-Here's a C code snippet demonstrating the usage of execve():
-c
+    The Concept of EOF:
+    Explore the concept of End-of-File (EOF) and its significance in indicating the end of a file or input stream. Understand how EOF is represented, how it is utilized in input/output functions, and its role in processing data until the end of a file is reached.
 
-#include <unistd.h>
-
-int main() {
-    char *args[] = { "program_name", "arg1", "arg2", NULL };
-    char *env[] = { "VAR1=value1", "VAR2=value2", NULL };
-    
-    execve("/path/to/program", args, env);
-    
-    // If execve returns, an error occurred
-    perror("execve");
-    return 1;
-}
-
-In this example:
-
-    The args array contains the program name followed by its arguments. The last element is set to NULL.
-    The env array represents the environment variables needed by the program.
-    The execve() system call is invoked, passing the program path, argument array, and environment variable array.
-    If execve() returns, it means an error occurred. The perror() function is used to print an error message.
-
-
-the three common prototypes of the main function are:
-
-    int main(void): Takes no arguments and returns an integer value. Used when the program does not require command-line arguments.
-    int main(int argc, char *argv[]): Takes command-line arguments as parameters. argc represents the number of arguments, and argv is an array of strings containing the arguments.
-    int main(int argc, char *argv[], char *envp[]): Similar to the previous prototype but includes the envp[] parameter, representing environment variables passed to the program.
-
-to suspend the execution of a process until one of its children terminates, you can use the wait() system call or its variants. Here's a summary of the steps:
-
-    Fork a child process: Use the fork() system call to create a child process from the parent process.
-
-    Child process execution: In the child process, execute the desired code or program using execve() or other execution-related functions.
-
-    Parent process execution: In the parent process, use the wait() system call or its variants (e.g., waitpid()) to suspend its execution until one of its child processes terminates.
-
-Here's an example in C:
-c
-
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdio.h>
-#include <unistd.h>
-
-int main() {
-    pid_t child_pid = fork();
-
-    if (child_pid == 0) {
-        // Child process code
-        // Execute the desired code or program
-        // Child process terminates when done
-        // ...
-    } else if (child_pid > 0) {
-        // Parent process code
-        // Wait for the child process to terminate
-        int status;
-        pid_t terminated_child_pid = wait(&status);
-        
-        if (terminated_child_pid > 0) {
-            if (WIFEXITED(status)) {
-                printf("Child process terminated normally. Exit status: %d\n", WEXITSTATUS(status));
-            } else if (WIFSIGNALED(status)) {
-                printf("Child process terminated by a signal. Signal number: %d\n", WTERMSIG(status));
-            }
-        } else {
-            perror("wait");
-        }
-    } else {
-        // Error handling if fork fails
-        perror("fork");
-        return 1;
-    }
-
-    return 0;
-}
-
-In this example:
-
-    The parent process forks a child process using fork().
-    In the child process, the desired code or program is executed.
-    The parent process uses wait() to suspend its execution until one of its child processes terminates.
-    After the child process terminates, the parent process can obtain information about the termination status using wait() and perform further actions accordingly.
-
-Note that the wait() system call can also be used with options and more advanced handling using waitpid().
-
-EOF (End-of-File) is a special value that represents the end of a file or input stream. It is used to indicate that there are no more data or characters to be read from an input source.
-
-EOF is typically represented by the constant EOF, which is defined in the standard input/output header file <stdio.h> in C. It is a negative integer value, often -1, that is returned by input/output functions when they encounter the end of a file or an error condition.
-Here's a simple example that shows how to read characters from standard input until the end of the file is reached:
-c
-
-#include <stdio.h>
-
-int main() {
-    int ch;
-
-    while ((ch = getchar()) != EOF) {
-        // Process the character
-        putchar(ch);
-    }
-
-    return 0;
-}
-
-In this example, the getchar() function is used to read characters from standard input. The loop continues until getchar() returns EOF, indicating the end of the input stream.
-
-It's important to note that EOF is a symbolic constant and not an actual character. It is used to indicate a condition rather than representing a specific character value.
-
-
-The core part of any Linux shell is the Command Line Interpreter, or CLI.
-
-In order to follow this tutorial, you will need the following:
-
-    A working GNU/Linux system (I personally use Ubuntu and Fedora, but feel free to use your favorite Linux distribution).
-    GCC (the GNU Compiler Collection) to compile the code.
-    A text editor to write the code (I personally use GEdit, but you can use Vim, Emacs, or any other editor as well).
-    How to program in C.
+Conclusion:
+Unix shells provide a powerful interface for users to interact with the operating system, enabling command execution, process management, and environment manipulation. Understanding the foundations of shells and process management is key to efficiently utilizing the capabilities of Unix-like systems. By grasping concepts like system calls, environment variables, and the role of the main function, users can harness the power of Unix shells to optimize their workflow and enhance their productivity.
 
 <h3>Mandatory Tasks</h3>
 
