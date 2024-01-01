@@ -58,7 +58,7 @@ void executecmd(char *cmd, int comcounter)
     }
     else if (pid == 0)
     {
-        execle(path, args[0], NULL);
+        execve(args, args[0], NULL);
         exit(1);
     }
     else
