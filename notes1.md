@@ -38,3 +38,9 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }</textarea>
+
+2. command line to av
+
+Write a function that splits a string and returns an array of each word of the string.
+
+The system call fork (man 2 fork) creates a new child process, almost identical to the parent (the process that calls fork). Once fork successfully returns, two processes continue to run the same program, but with different stacks, datas and heaps.
