@@ -18,10 +18,10 @@ extern char **environ;
 
 char *prompt();
 
-void ss_exit(char **args);
-void ss_cd(char **args);
-void ss_help(char **args);
-void ss_env(char **args);
+int ss_exit(char **args);
+int ss_cd(char **args);
+int ss_help(char **args);
+int ss_env(char **args);
 
 char *builtins[] = {
     "cd",

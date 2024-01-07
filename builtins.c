@@ -1,7 +1,7 @@
 #include "main.h"
  int SS_BUILTINS = (sizeof(builtins) / sizeof(char *));
 
-void ss_help( __attribute__((unused)) char **args) {
+int ss_help( __attribute__((unused)) char **args) {
     int i;
     char *helptext =
         "Kash - the Kinda Aimless Shell. "
@@ -19,7 +19,7 @@ void ss_help( __attribute__((unused)) char **args) {
     return (1);
 }
 
-void ss_cd(char **args) {
+int ss_cd(char **args) {
     if (args[1] == NULL) {
         fprintf(stderr, "kash: cd: missing argument\n");
     } else {
@@ -27,13 +27,14 @@ void ss_cd(char **args) {
             perror("kash: cd");
         }
     }
+    return(1);
 }
 
-void ss_exit(__attribute__((unused)) char **args) {
+int ss_exit(__attribute__((unused)) char **args) {
     exit(0);
 }
 
-void ss_env(char **args)
+int ss_env(char **args)
 {
     if (strcmp(args[0], "env") == 0)
     {
@@ -43,6 +44,6 @@ void ss_env(char **args)
             printf("%s\n", *env);
             env++;
         }
-        return;
     }
+    return(1);
 }
