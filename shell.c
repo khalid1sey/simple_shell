@@ -2,33 +2,23 @@
 
 /**
  * main - entry point
- *
+ * @argc: arguement counter
+ * @envp: enviroment variables
  * Return: 0 on success
 */
-int main(void)
+int main(int argc __attribute__((unused)), char *envp[])
 {
-	char cmd[200];
-	char *argv[2];
-	char *envp[] = {NULL};
-	int status;
+	char *cmd;
+	char *args[10];
 
 	while (1)
 	{
-		printf("$ ");
-		fgets(cmd, sizeof(cmd), stdin);
+		cmd = prompt();
 
-		cmd[strcspn(cmd, "\n")] = 0;
+		tokenize_cmd(cmd, args);
+		execute_builtins(args, envp);
 
-		if (strchr(cmd, ' ') == NULL)
-		{
-			argv[0] = cmd;
-			argv[1] = NULL;
-
-			status = execve(cmd, argv, envp);
-			if (status == -1)
-				perror(cmd);
-		} else
-			printf("%s: not a single-word cmd\n", cmd);
+		free(cmd);
 	}
 	return (0);
 }

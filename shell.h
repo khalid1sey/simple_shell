@@ -16,5 +16,21 @@
 
 extern char **environ;
 
+/*input_handling.c*/
+char *prompt();
+
+/*tokenize.c*/
+void tokenize_cmd(char *cmd, char *args[]);
+
+/*execute.c*/
+void execute_cmd(char *args[], char *envp[]);
+char *search_command(char *command, char *envp[]);
+void execute_builtins(char *args[], char *envp[]);
+
+/*builtins.c*/
+void handle_cd(char *args[]);
+void handle_exit();
+void handle_env(char *envp[]);
+
 
 #endif
