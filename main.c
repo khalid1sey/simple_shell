@@ -1,17 +1,5 @@
 #include "shell.h"
 
-/**
- * struct builtin - Defines a struct that conatins built-in commands
- * with their respective implementation functions
- * @name: - Built-in command
- * @builtin_func_t: - Pointer to custom functions that have
- * similar functionalities as the built-in commands
- */
-builtin_t builtins[] = {
-	{"help", ss_help},
-	{"exit", ss_exit},
-	{"env", ss_env},
-};
 
 /**
  * main - entry point
@@ -68,11 +56,14 @@ char *prompt()
 */
 void execute_builtin(__attribute__((unused)) char **args)
 {
-	int SS_BUILTINS = (sizeof(builtins) / sizeof(struct builtin));
-
 	int i = 0;
 
-	for (i = 0; i < SS_BUILTINS; i++)
+	builtin_t builtins[] = {
+	{"exit", ss_exit},
+	{"env", ss_env},
+	};
+
+	for (i = 0; i < 2; i++)
 	{
 		if (strcmp(args[0], builtins[i].name) == 0)
 		{
@@ -81,7 +72,7 @@ void execute_builtin(__attribute__((unused)) char **args)
 		}
 	}
 }
-fgdfgvdfd
+
 /**
  * execute_cmd - reads lines from std input
  * @args: command to execute
@@ -89,8 +80,10 @@ fgdfgvdfd
 */
 void execute_cmd(char **args)
 {
-	execute_builtin(args);
 	pid_t child_pid = fork();
+
+	execute_builtin(args);
+
 	/*char *path = getenv("PATH");*/
 
 	/*printf("PATH: %s\n", path);*/

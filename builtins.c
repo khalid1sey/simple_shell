@@ -1,21 +1,6 @@
 #include "shell.h"
 
 /**
- * ss_help - displays available commands
- *
- * @args: command entered
- * Return: 1 if used
-*/
-int ss_help(__attribute__((unused)) char **args)
-{
-	char *helptext =
-	"Kash - the Kinda Aimless Shell. The following commands are available:\n";
-
-	printf("%s", helptext);
-	return (1);
-}
-
-/**
  * ss_exit - exits the shell when exit is entered
  *
  * @args: command enterd

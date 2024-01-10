@@ -10,6 +10,7 @@ char *resolve_command_path(char *command)
 	char *path = getenv("PATH");
 	char *token;
 	char *path_copy = strdup(path);
+	struct stat st;
 
 	token = strtok(path_copy, ":");
 	while (token != NULL)
@@ -17,7 +18,6 @@ char *resolve_command_path(char *command)
 		char *command_path = malloc(strlen(token) + strlen(command) + 2);
 
 		sprintf(command_path, "%s/%s", token, command);
-		struct stat st;
 
 		if (stat(command_path, &st) == 0 && (st.st_mode & S_IXUSR))
 		{
