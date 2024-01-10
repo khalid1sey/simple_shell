@@ -16,9 +16,16 @@
 
 extern char **environ;
 
+typedef struct
+{
+	char *name;
+	int (*builtin_func_t)(char **args);
+} builtin_t;
+
 char *prompt();
 char** kash_split_line(char *line);
 void execute_cmd(char **args);
+void execute_builtin(char **args);
 char *resolve_command_path(char *command);
 
 int ss_exit(char **args);
