@@ -1,0 +1,57 @@
+
+.SH NAME
+simple_shell \- a simple UNIX command line interpreter
+
+.SH SYNOPSIS
+.B simple_shell
+
+.SH DESCRIPTION
+The Simple Shell is a basic command line interpreter that allows users to execute commands and interact with the operating system. It provides a simple and intuitive interface for running commands and performing basic shell operations.
+
+.SH OPTIONS
+There are no command-line options for the Simple Shell.
+
+.SH USAGE
+The Simple Shell is invoked by running the executable file, without any command-line arguments.
+
+.SH COMMANDS
+The Simple Shell supports the following commands:
+.TP
+.BR command1
+Execute a command specified by \fIcommand1\fR.
+
+.SH BUILT-IN COMMANDS
+The Simple Shell provides the following built-in commands:
+.TP
+.BR exit
+Exit the shell.
+.TP
+.BR env
+Print the current environment.
+
+.SH EXIT STATUS
+The Simple Shell returns the following exit status codes:
+.TP
+.B 0
+Successful execution of a command.
+.TP
+.B 1
+Invalid command or command execution failure.
+.TP
+.B 2
+Shell internal error.
+
+.SH EXAMPLES
+To run the Simple Shell, execute the following command:
+.PP
+.B simple_shell
+
+.SH AUTHORS
+The Simple Shell was developed by Khalid as part of a project.
+
+.SH COPYRIGHT
+This is free software: you are free to modify and redistribute it. There is NO WARRANTY, to the extent permitted by law.
+
+.SH SEE ALSO
+The Simple Shell project repository: https://github.com/khalid1sey/simple_shell
+
