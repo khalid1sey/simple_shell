@@ -34,10 +34,12 @@ int main(void)
 char *prompt()
 {
 	char *cmd_line = NULL;
-	size_t length = 0;
+	size_t length = MAX_CMD_LEN;
 	ssize_t read;
 
 	printf("$ ");
+	fflush(stdout);
+
 	read = getline(&cmd_line, &length, stdin);
 
 	if (read == -1)
@@ -54,7 +56,7 @@ char *prompt()
  * @args: command to execute
  * Return: lines entered
 */
-void execute_builtin(__attribute__((unused)) char **args)
+void execute_builtin(char **args)
 {
 	int i = 0;
 
@@ -80,16 +82,15 @@ void execute_builtin(__attribute__((unused)) char **args)
 */
 void execute_cmd(char **args)
 {
-	pid_t child_pid = fork();
-
-	execute_builtin(args);
-
+	
+	char *command_path;
 	/*char *path = getenv("PATH");*/
-
+	pid_t child_pid = fork();
 	/*printf("PATH: %s\n", path);*/
 	if (child_pid == 0)
 	{
-		char *command_path = resolve_command_path(args[0]);
+		execute_builtin(args);
+		command_path = resolve_command_path(args[0]);
 
 		if (access(args[0], X_OK) == 0)
 		{

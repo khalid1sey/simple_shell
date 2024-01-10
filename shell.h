@@ -16,30 +16,5 @@
 
 extern char **environ;
 
-int ss_exit(char **args);
-int ss_env(char **args);
-
-
-/**
- * struct builtin - Defines a struct that conatins built-in commands
- * with their respective implementation functions
- * @name: - Built-in command
- * @builtin_func_t: - Pointer to custom functions that have
- * similar functionalities as the built-in commands
- */
-typedef struct
-{
-	char *name;
-	int (*builtin_func_t)(char **args);
-} builtin_t;
-
-extern builtin_t builtins[];
-
-char *prompt();
-char** kash_split_line(char *line);
-void execute_cmd(char **args);
-void execute_builtin(char **args);
-char *resolve_command_path(char *command);
-
 
 #endif
