@@ -16,7 +16,6 @@ void execute_cmd(char *args[], char *envp[])
 	if (command_path == NULL)
 	{
 		fprintf(stderr, "Command not found: %s\n", command);
-		free(command_path);
 		return;
 	}
 	if (pid == -1)
@@ -48,6 +47,7 @@ void execute_cmd(char *args[], char *envp[])
 			fprintf(stderr, "Command terminated with signal %d\n", signal_number);
 		}
 	}
+	free(command_path);
 }
 
 /**

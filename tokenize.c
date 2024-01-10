@@ -16,7 +16,10 @@ void tokenize_cmd(char *cmd, char *args[])
 	i = 0;
 	while (token != NULL && i < 20)
 	{
-		args[i++] = token;
+		if (token[0] != '#')
+			args[i++] = token;
+		else
+			break;
 		token = strtok(NULL, " ");
 	}
 
