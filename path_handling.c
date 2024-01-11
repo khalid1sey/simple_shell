@@ -42,8 +42,6 @@ char *search_path(char *command)
 	return (NULL);
 }
 
-#include "shell.h"
-
 /**
  * get_path - Returns the value of the PATH enviroment variable.
  *

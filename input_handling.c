@@ -97,7 +97,7 @@ char **split_cmd(char *cmd)
 {
 	char **tokens = NULL;
 	char *tmp = NULL;
-	char *command;
+
 
 	tmp = strdup(cmd);
 	if (tmp == NULL)
@@ -105,11 +105,6 @@ char **split_cmd(char *cmd)
 		puts("Memory allocation error\n");
 		exit(EXIT_FAILURE);
 	}
-
-	command = tmp;
-	while (*command == ' ')
-		command++;
-
 	tokens = tokenize(tmp, " \t\r\n\a");
 	free(tmp);
 

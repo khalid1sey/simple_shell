@@ -9,13 +9,17 @@ int main(void)
 {
 	char *cmd;
 	char **args;
-	int status;
 
-	do {
+	while (1)
+	{
 		cmd = read_cmd();
-		if (!cmd || !*cmd)/* EOF detected, exit the loop */
+		if (!cmd)/* EOF detected, exit the loop */
 			break;
-
+		if (*cmd == '\0')
+		{
+			free(cmd);
+			continue;
+		}
 		args = split_cmd(cmd);
 		if (!args || !*args)
 		{
@@ -23,13 +27,10 @@ int main(void)
 			free_array(args);
 			continue;
 		}
-		status = execute(args);
+		execute(args);
 		free(cmd);
 		free_array(args);
-
-		/* Set status to 1 to continue the loop */
-		status = 1;
-	} while (status);
+	}
 
 	return (EXIT_SUCCESS);
 }
