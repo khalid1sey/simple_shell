@@ -30,7 +30,7 @@ To compile the Simple Shell, follow these steps:
 
 1. Clone the repository:
 
-$ git clone https://github.com/your-username/simple_shell.git
+$ git clone https://github.com/khalid1sey/simple_shell.git
 
 
 2. Navigate to the project directory:
@@ -57,33 +57,17 @@ The shell will display a prompt (`#cisfun$`) and wait for you to enter a command
 Here are a few examples of commands you can try:
 
 ```shell
-#cisfun$ ls
+$ ls
 file1  file2  file3
-#cisfun$ echo Hello, world!
+$ echo Hello, world!
 Hello, world!
-#cisfun$ /bin/ls -l
+$ /bin/ls -l
 total 8
 -rwxrwxr-x 1 user user 8752 Jan 10 13:00 shell
-#cisfun$ exit
+$ exit
 
 To exit the shell, you can use the exit command or press Ctrl+D.
 Project Structure
-
-The repository consists of the following files:
-
-    shell.c: The main entry point of the shell program.
-    input_handling.c: Helper functions for tokenizing input, executing commands, and handling errors.
-    shell.h: Header file containing function prototypes and macro definitions.
-    builtins.c: Implementation of built-in commands (exit and env).
-
-
-Limitations
-
-Please note that this Simple Shell implementation has some limitations and does not support the following:
-
-    Advanced shell features like pipes, redirections, and background processes.
-    Handling of special characters such as quotes, backticks, and wildcards.
-    Cursor movement and editing capabilities.
 
 Contributors
 
