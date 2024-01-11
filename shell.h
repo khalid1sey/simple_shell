@@ -28,7 +28,7 @@ void free_array(char **ptr);
 char *read_cmd(void);
 void free_last_input(void);
 char **tokenize(char *str, const char *delim);
-char **split_cmd(char *input);
+char **split_cmd(char *cmd);
 void *get_line(void);
 
 
