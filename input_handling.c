@@ -13,7 +13,6 @@ char *read_cmd(void)
 	size_t input_size = 0;
 	ssize_t nread;
 
-	do {
 		/* print shell prompt */
 		prompt();
 
@@ -29,8 +28,6 @@ char *read_cmd(void)
 
 		/* remove trailing newline character */
 		input[nread - 1] = '\0';
-
-	} while (input[0] == '\0' || isspace(input[0]));
 
 	/* update last_input to point to the new input */
 	last_input = input;
@@ -132,26 +129,25 @@ void *get_line(void)
 	char *input_str = NULL;
 	char current_char;
 	int input_len = 0;
-	int cmd_start = 0;
-	ssize_t bytes_read;
 
 	while (1)
 	{
 		if (buf_pos >= buf_size)
 		{
+			buf_size = read(STDIN_FILENO, buffer, BUFFER_SIZE);
 			buf_pos = 0;
-			bytes_read = read(STDIN_FILENO, buffer, BUFFER_SIZE);
-			if (bytes_read <= 0)
+			if (buf_size == 0)
 				return (input_str);
+			else if (buf_size < 0)
+			{
+				perror("read");
+				return (NULL);
+			}
 		}
+
 		current_char = buffer[buf_pos];
 
 		buf_pos++;
-
-		if (!cmd_start && current_char == ' ')
-		{
-			continue;
-		}
 
 		if (current_char == '\n')
 		{
@@ -164,7 +160,6 @@ void *get_line(void)
 			input_str = realloc(input_str, input_len + 1);
 			input_str[input_len] = current_char;
 			input_len++;
-			cmd_start = 1;
 		}
 	}
 }
