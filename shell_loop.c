@@ -31,7 +31,7 @@ int hsh(info_t *info, char **av)
 		if (interactive(info))
 		{
 			_puts(ANSI_COLOR_BOLD);
-			_puts(ANSI_COLOR_GREEN);
+			_puts(ANSI_COLOR_RED);
 			_puts(username);
 			_puts("@");
 			_puts(ANSI_COLOR_RESET);
@@ -46,7 +46,7 @@ int hsh(info_t *info, char **av)
 			_puts(ANSI_COLOR_RESET);
 			_puts(ANSI_COLOR_BOLD);
 			_puts("$ ");
-			_puts(ANSI_COLOR_RESET);
+			_puts(ANSI_COLOR_GREEN);
 			
 		}
 		_eputchar(BUF_FLUSH);

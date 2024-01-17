@@ -1,3 +1,5 @@
+<img src="![Alt text](<simp;e shell.png>)>">
+
 # Simple Shell
 
 The Simple Shell is a basic UNIX command line interpreter that allows users to execute commands and interact with the operating system. It provides a simple and intuitive interface for running commands and performing basic shell operations.
