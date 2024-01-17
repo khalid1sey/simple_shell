@@ -11,12 +11,44 @@ int hsh(info_t *info, char **av)
 {
 	ssize_t r = 0;
 	int builtin_ret = 0;
+	char *username = getenv("USER");
+	char cwd[1024];
+
+	struct utsname uname_data;
+    if (uname(&uname_data) == -1) {
+        perror("uname() error");
+        return -1;
+    }
 
 	while (r != -1 && builtin_ret != -2)
 	{
+			
+	if (getcwd(cwd, sizeof(cwd)) == NULL) {
+        perror("getcwd() error");
+        return -1;
+    }
 		clear_info(info);
 		if (interactive(info))
+		{
+			_puts(ANSI_COLOR_BOLD);
+			_puts(ANSI_COLOR_GREEN);
+			_puts(username);
+			_puts("@");
+			_puts(ANSI_COLOR_RESET);
+			_puts(ANSI_COLOR_BOLD);
+			_puts(ANSI_COLOR_YELLOW);
+			_puts(uname_data.nodename);
+			_puts(ANSI_COLOR_RESET);
+			_puts(ANSI_COLOR_BOLD);
+			_puts(":");
+			_puts(ANSI_COLOR_BLUE);
+			_puts(cwd);
+			_puts(ANSI_COLOR_RESET);
+			_puts(ANSI_COLOR_BOLD);
 			_puts("$ ");
+			_puts(ANSI_COLOR_RESET);
+			
+		}
 		_eputchar(BUF_FLUSH);
 		r = get_input(info);
 		if (r != -1)
@@ -27,7 +59,7 @@ int hsh(info_t *info, char **av)
 				find_cmd(info);
 		}
 		else if (interactive(info))
-			_putchar('\n');
+			_putchar('\t');
 		free_info(info, 0);
 	}
 	write_history(info);
