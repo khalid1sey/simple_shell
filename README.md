@@ -1,4 +1,4 @@
-![Alt text](<simp;e shell.png>)>
+![Alt text](<ss.png>)>
 
 # Simple Shell
 
