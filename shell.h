@@ -12,6 +12,7 @@
 #include <limits.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <termios.h>
 
 /* for read/write buffers */
 #define READ_BUF_SIZE 1024
@@ -41,6 +42,11 @@
 #define ANSI_COLOR_RED "\x1b[31m"
 #define ANSI_COLOR_BOLD "\x1b[1m"
 #define ANSI_COLOR_RESET "\x1b[0m"
+
+#define KEY_ARROW_UP "\x1b[A"
+#define KEY_ARROW_DOWN "\x1b[B"
+#define KEY_ARROW_RIGHT "\x1b[C"
+#define KEY_ARROW_LEFT "\x1b[D"
 
 extern char **environ;
 
@@ -239,5 +245,10 @@ void check_chain(info_t *, char *, size_t *, size_t, size_t);
 int replace_alias(info_t *);
 int replace_vars(info_t *);
 int replace_string(char **, char *);
+
+void enableRawMode();
+void disableRawMode();
+char readKey();
+void processKey(char c);
 
 #endif

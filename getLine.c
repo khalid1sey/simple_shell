@@ -56,6 +56,7 @@ ssize_t get_input(info_t *info)
 	static size_t i, j, len;
 	ssize_t r = 0;
 	char **buf_p = &(info->arg), *p;
+	char arrowSeq[3] = {0};
 
 	_putchar(BUF_FLUSH);
 	r = input_buf(info, &buf, &len);

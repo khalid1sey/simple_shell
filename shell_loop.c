@@ -51,6 +51,7 @@ int hsh(info_t *info, char **av)
 		}
 		_eputchar(BUF_FLUSH);
 		r = get_input(info);
+		
 		if (r != -1)
 		{
 			set_info(info, av);
@@ -72,6 +73,8 @@ int hsh(info_t *info, char **av)
 			exit(info->status);
 		exit(info->err_num);
 	}
+    enableRawMode();
+	disableRawMode();
 	return (builtin_ret);
 }
 
